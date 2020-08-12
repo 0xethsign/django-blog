@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
 from .forms import FormPost, FormEdit
+from django.urls import reverse_lazy
 
 class HomeView(ListView):
     model = Post
@@ -14,9 +15,9 @@ class ArticleDetailView(DetailView):
     
 class AddPostView(CreateView):
     model = Post
-    form_class = FormPost
+    # form_class = FormPost
     template_name = 'add_post.html'
-    #fields = ('title','author','body')
+    fields = ('title','author','body')
     
 class UpdatePostView(UpdateView):
     model = Post
@@ -28,3 +29,4 @@ class UpdatePostView(UpdateView):
 class DeletePostView(DeleteView):
     model = Post
     template_name = 'delete_post.html'
+    success_url = reverse_lazy('home')
